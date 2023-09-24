@@ -17,6 +17,7 @@ import com.natalianero.projectmongo.domain.User;
 import com.natalianero.projectmongo.dto.UserDTO;
 import com.natalianero.projectmongo.services.UserService;
 
+
 @RestController
 @RequestMapping(value="/users")
 public class UserResource {
@@ -43,5 +44,11 @@ public class UserResource {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+ 	public ResponseEntity<Void> delete(@PathVariable String id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }
